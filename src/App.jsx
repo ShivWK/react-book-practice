@@ -22,30 +22,81 @@ function App() {
   //   y: 0
   // });
 
+  // Multiple fields update with just one line of code
+
+    // const [person, setPerson] = useState({
+    //   firstName: 'Barbara',
+    //   lastName: 'Hepworth',
+    //   email: 'bhepworth@sculpture.com'
+    // });
+
+    // function handleFirstNameChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     [e.target.name] : e.target.value
+    //   });
+    // }
+
+    // function handleLastNameChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     lastName: e.target.value
+    //   });
+    // }
+
+    // function handleEmailChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     email: e.target.value
+    //   });
+    // }
+
+  //Updating nested objects
+
     const [person, setPerson] = useState({
-      firstName: 'Barbara',
-      lastName: 'Hepworth',
-      email: 'bhepworth@sculpture.com'
+      name: 'Niki de Saint Phalle',
+      artwork: {
+        title: 'Blue Nana',
+        city: 'Hamburg',
+        image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+      }
     });
 
-    function handleFirstNameChange(e) {
+    function handleNameChange(e) {
       setPerson({
         ...person,
-        [e.target.name] : e.target.value
+        name: e.target.value
       });
     }
 
-    function handleLastNameChange(e) {
+    function handleTitleChange(e) {
       setPerson({
-        ...person,
-        lastName: e.target.value
+       ...person,
+       artwork : {
+        ...person.artwork,
+        title : e.target.value,
+       }
       });
     }
 
-    function handleEmailChange(e) {
+    function handleCityChange(e) {
       setPerson({
         ...person,
-        email: e.target.value
+        artwork : {
+          ...person.artwork,
+          city : e.target.value,
+        }
+        
+      });
+    }
+
+    function handleImageChange(e) {
+      setPerson({
+        ...person,
+        artwork : {
+          ...person.artwork,
+          image : e.target.value,
+        }
       });
     }
   
@@ -101,7 +152,7 @@ function App() {
     </div>         */}
 
     {/* multiple field update */}
-            <label>
+            {/* <label>
               First name:
               <input
                 name="firstName"
@@ -131,9 +182,55 @@ function App() {
               {person.firstName}{' '}
               {person.lastName}{' '}
               ({person.email})
-            </p>
-    </>
-  )
-}
+            </p> */}
 
+    {/* updating nested object */}
+
+              <label>
+                Name:
+                <input
+                  value={person.name}
+                  onChange={handleNameChange}
+                />
+              </label>
+              <br /><br />
+              <label>
+                Title:
+                <input
+                  value={person.artwork.title}
+                  onChange={handleTitleChange}
+                />
+              </label>
+              <br /><br />
+
+              <label>
+                City:
+                <input
+                  value={person.artwork.city}
+                  onChange={handleCityChange}
+                />
+              </label>
+              <br /><br />
+
+              <label>
+                Image:
+                <input
+                  value={person.artwork.image}
+                  onChange={handleImageChange}
+                />
+              </label>
+              <p>
+                <i>{person.artwork.title}</i>
+                {' by '}
+                {person.name}
+                <br />
+                (located in {person.artwork.city})
+              </p>
+              <img 
+                src={person.artwork.image} 
+                alt={person.artwork.title}
+              />
+            </>
+          );
+        }
 export default App
