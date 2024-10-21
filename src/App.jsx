@@ -16,11 +16,22 @@ import Button from './components/Button';
 // }
 // let nextId =  0;
 
-let initialArtists = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye'},
-  { id: 2, name: 'Louise Nevelson'},
-];
+//Removing an element from the array
+
+  // let initialArtists = [
+  //   { id: 0, name: 'Marta Colvin Andrade' },
+  //   { id: 1, name: 'Lamidi Olonade Fakeye'},
+  //   { id: 2, name: 'Louise Nevelson'},
+  // ];
+
+//Transforming an array in state
+
+    let initialShapes = [
+      { id: 0, type: 'circle', x: 50, y: 100 },
+      { id: 1, type: 'square', x: 150, y: 100 },
+      { id: 2, type: 'circle', x: 250, y: 100 },
+    ];
+
 
 function App() {
   // const [number, setNumber] = useState(0);
@@ -139,14 +150,39 @@ function App() {
 
       //Adding to the array state
 
-      // const [name, setName] = useState('');
-      // const [artists, setArtists] = useState([]);
+        // const [name, setName] = useState('');
+        // const [artists, setArtists] = useState([]);
 
       //Removing fro the array
 
-      const [artists, setArtists] = useState(
-        initialArtists
-      );
+        // const [artists, setArtists] = useState(
+        //   initialArtists
+        // );
+
+      //Transforming the array in state
+
+        const [shapes, setShapes] = useState(
+          initialShapes
+        );
+
+        function handleClick() {
+          const nextShapes = shapes.map((shape) => {
+            if (shape.type === "square") {
+              return {
+                ...shape,
+                x : shape.x + 50,
+                y : shape.y + 30,
+              }
+            } else {
+              return {
+                ...shape,
+                y : shape.y + 50,
+              }
+            }
+          })
+          // Re-render with the new array
+          setShapes(nextShapes);
+        }
 
   return (
     <>
@@ -326,7 +362,7 @@ function App() {
 
     {/*Removing form an array*/}
 
-                  <h1>Inspiring sculptors:</h1>
+                  {/* <h1>Inspiring sculptors:</h1>
                   <ul>
                     {artists.map(artist => (
                       <li key={artist.id}>
@@ -338,7 +374,28 @@ function App() {
                         </button>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
+
+      {/* Transforming an array */}
+
+          <button onClick={handleClick}>
+            Move circles down!
+          </button>
+          {shapes.map(shape => (
+            <div
+              key={shape.id}
+              style={{
+              background: 'purple',
+              position: 'absolute',
+              left: shape.x,
+              top: shape.y,
+              borderRadius:
+                shape.type === 'circle'
+                  ? '50%' : '',
+              width: 20,
+              height: 20,
+            }} />
+          ))}
             </>
           );
         }
