@@ -12,8 +12,15 @@ import Button from './components/Button';
 // }
 
 // function Item({ name, isPacked}) {
-//   return <li>{isPacked && name + " done"}</li>
+//   return <li>{isPacked && name + " done"}</lvi>
 // }
+// let nextId =  0;
+
+let initialArtists = [
+  { id: 0, name: 'Marta Colvin Andrade' },
+  { id: 1, name: 'Lamidi Olonade Fakeye'},
+  { id: 2, name: 'Louise Nevelson'},
+];
 
 function App() {
   // const [number, setNumber] = useState(0);
@@ -53,53 +60,94 @@ function App() {
 
   //Updating nested objects
 
-    const [person, setPerson] = useState({
-      name: 'Niki de Saint Phalle',
-      artwork: {
-        title: 'Blue Nana',
-        city: 'Hamburg',
-        image: 'https://i.imgur.com/Sd1AgUOm.jpg',
-      }
-    });
+    // const [person, setPerson] = useState({
+    //   name: 'Niki de Saint Phalle',
+    //   artwork: {
+    //     title: 'Blue Nana',
+    //     city: 'Hamburg',
+    //     image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    //   }
+    // });
 
-    function handleNameChange(e) {
-      setPerson({
-        ...person,
-        name: e.target.value
-      });
-    }
+    // function handleNameChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     name: e.target.value
+    //   });
+    // }
 
-    function handleTitleChange(e) {
-      setPerson({
-       ...person,
-       artwork : {
-        ...person.artwork,
-        title : e.target.value,
-       }
-      });
-    }
+    // function handleTitleChange(e) {
+    //   setPerson({
+    //    ...person,
+    //    artwork : {
+    //     ...person.artwork,
+    //     title : e.target.value,
+    //    }
+    //   });
+    // }
 
-    function handleCityChange(e) {
-      setPerson({
-        ...person,
-        artwork : {
-          ...person.artwork,
-          city : e.target.value,
-        }
+    // function handleCityChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     artwork : {
+    //       ...person.artwork,
+    //       city : e.target.value,
+    //     }
         
-      });
-    }
+    //   });
+    // }
 
-    function handleImageChange(e) {
-      setPerson({
-        ...person,
-        artwork : {
-          ...person.artwork,
-          image : e.target.value,
-        }
-      });
-    }
+    // function handleImageChange(e) {
+    //   setPerson({
+    //     ...person,
+    //     artwork : {
+    //       ...person.artwork,
+    //       image : e.target.value,
+    //     }
+    //   });
+    // }
   
+  //Task 1 2.6 chapter react
+
+      // const [player, setPlayer] = useState({
+      //   firstName: 'Ranjani',
+      //   lastName: 'Shettar',
+      //   score: 10,
+      // });
+
+      // function handlePlusClick() {
+      //   setPlayer({
+      //     ...player,
+      //     score : player.score + 1,
+      //   })
+      //   // player.score++;
+      // }
+
+      // function handleFirstNameChange(e) {
+      //   setPlayer({
+      //     ...player,
+      //     firstName: e.target.value,
+      //   });
+      // }
+
+      // function handleLastNameChange(e) {
+      //   setPlayer({
+      //     ...player,
+      //     lastName: e.target.value
+      //   });
+      // }
+
+      //Adding to the array state
+
+      // const [name, setName] = useState('');
+      // const [artists, setArtists] = useState([]);
+
+      //Removing fro the array
+
+      const [artists, setArtists] = useState(
+        initialArtists
+      );
+
   return (
     <>
       {/* <Button onClick={function() {console.log("clicked-1")}}>Click me</Button>
@@ -186,7 +234,7 @@ function App() {
 
     {/* updating nested object */}
 
-              <label>
+              {/* <label>
                 Name:
                 <input
                   value={person.name}
@@ -229,8 +277,72 @@ function App() {
               <img 
                 src={person.artwork.image} 
                 alt={person.artwork.title}
+              /> */}
+
+        {/* Task 1 */}
+
+            {/* <label>
+              Score: <b>{player.score}</b>
+              {' '}
+              <button onClick={handlePlusClick}>
+                +1
+              </button>
+            </label>
+            <label>
+              First name:
+              <input
+                value={player.firstName}
+                onChange={handleFirstNameChange}
               />
+            </label>
+            <label>
+              Last name:
+              <input
+                value={player.lastName}
+                onChange={handleLastNameChange}
+              />
+            </label> */}
+
+{/* Updating arrays in state */}
+
+    {/* Adding to the array */}
+
+          {/* <h1>Inspiring sculptors:</h1>
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <button onClick={() => {
+            setArtists([
+              ...artists,
+              {id : nextId++ , name : name}
+            ])
+          }}>Add</button>
+          <ul>
+            {artists.map(artist => (
+              <li key={artist.id}>{artist.name}</li>
+            ))}
+          </ul> */}
+
+    {/*Removing form an array*/}
+
+                  <h1>Inspiring sculptors:</h1>
+                  <ul>
+                    {artists.map(artist => (
+                      <li key={artist.id}>
+                        {artist.name}{' '}
+                        <button onClick={() => {
+                          setArtists(artists.filter(a => a.id !== artist.id))
+                        }}>
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
             </>
           );
         }
+
 export default App
+
+        // when we mutate an state then react couldn't judge the change because it dont have the older value through which it can compare the new value, so it doesnt do the rerender as nothing is changed according to it.
