@@ -14,7 +14,7 @@ import Button from './components/Button';
 // function Item({ name, isPacked}) {
 //   return <li>{isPacked && name + " done"}</lvi>
 // }
-let nextId =  3;
+// let nextId =  3;
 
 //Removing an element from the array
 
@@ -34,11 +34,20 @@ let nextId =  3;
 
   //insertig an item in the mid of an array
 
-  const initialArtists = [
-    { id: 0, name: 'Marta Colvin Andrade' },
-    { id: 1, name: 'Lamidi Olonade Fakeye'},
-    { id: 2, name: 'Louise Nevelson'},
-  ];
+      // const initialArtists = [
+      //   { id: 0, name: 'Marta Colvin Andrade' },
+      //   { id: 1, name: 'Lamidi Olonade Fakeye'},
+      //   { id: 2, name: 'Louise Nevelson'},
+      // ];
+
+  //sorting reversing the array
+
+      const initialList = [
+        { id: 0, title: 'Big Bellies' },
+        { id: 1, title: 'Lunar Landscape' },
+        { id: 2, title: 'Terracotta Army' },
+      ];
+
 
 function App() {
   // const [number, setNumber] = useState(0);
@@ -193,22 +202,32 @@ function App() {
 
     // Inserting in the mid of the array
 
-        const [name, setName] = useState('');
-        const [artists, setArtists] = useState(
-          initialArtists
-        );
+        // const [name, setName] = useState('');
+        // const [artists, setArtists] = useState(
+        //   initialArtists
+        // );
       
-        function handleClick() {
-          let insertAt = 1;
-          let nextArtists = [
-            ...artists.slice(0 , insertAt),
-            {id : nextId++, name : name},
-            ...artists.slice(insertAt),
-          ]
-          setArtists(nextArtists);
-          setName('');
+        // function handleClick() {
+        //   let insertAt = 1;
+        //   let nextArtists = [
+        //     ...artists.slice(0 , insertAt),
+        //     {id : nextId++, name : name},
+        //     ...artists.slice(insertAt),
+        //   ]
+        //   setArtists(nextArtists);
+        //   setName('');
 
-          console.log(artists)
+        //   console.log(artists)
+        // }
+
+    //sorting and reversing the array
+
+        const [list, setList] = useState(initialList);
+
+        function handleClick() {
+              let reverseed  = [...list];
+              reverseed.reverse();
+              setList(reverseed);
         }
 
   return (
@@ -426,7 +445,7 @@ function App() {
 
       {/* inserting in the mid of the array in state */}
 
-              <h1>Inspiring sculptors:</h1>
+              {/* <h1>Inspiring sculptors:</h1>
               <input
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -438,6 +457,17 @@ function App() {
                 {artists.map(artist => (
                   <li key={artist.id}>{artist.name}</li>
                 ))}
+              </ul> */}
+
+      {/*sorting reversing the array in state*/}
+
+              <button onClick={handleClick}>
+                  Reverse
+              </button>
+              <ul>
+              {list.map(artwork => (
+                  <li key={artwork.id}>{artwork.title}</li>
+              ))}
               </ul>
             </>
           );
