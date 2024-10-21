@@ -57,6 +57,21 @@ import Button from './components/Button';
         { id: 2, title: 'Terracotta Army', seen: true },
       ];
 
+  //task 2 , 2.7 
+
+      const initialProducts = [{
+        id: 0,
+        name: 'Baklava',
+        count: 1,
+      }, {
+        id: 1,
+        name: 'Cheese',
+        count: 5,
+      }, {
+        id: 2,
+        name: 'Spaghetti',
+        count: 2,
+      }];
 
 function App() {
   // const [number, setNumber] = useState(0);
@@ -241,32 +256,66 @@ function App() {
 
     //Updating an object inside an array in state
 
-        const [myList, setMyList] = useState(initialList);
-        const [yourList, setYourList] = useState(
-          initialList
-        );
+        // const [myList, setMyList] = useState(initialList);
+        // const [yourList, setYourList] = useState(
+        //   initialList
+        // );
       
-        function handleToggleMyList(artworkId, nextSeen) {
-          const myNextList = myList.map(object => {
-            if (object.id === artworkId) {
-              return {...object , seen : nextSeen};
+        // function handleToggleMyList(artworkId, nextSeen) {
+        //   const myNextList = myList.map(object => {
+        //     if (object.id === artworkId) {
+        //       return {...object , seen : nextSeen};
+        //     } else {
+        //       return object;
+        //     }
+        //   })
+        //   setMyList(myNextList);
+        // }
+      
+        // function handleToggleYourList(artworkId, nextSeen) {
+        //   const yourNextList = yourList.map(object => {
+        //       if (object.id === artworkId) {
+        //         return {...object, seen : nextSeen}
+        //       } else {
+        //         return object;
+        //       }
+        //     })
+        //     setYourList(yourNextList);
+        //   }
+
+    //task 2 , 2.7 
+
+        const [
+          products,
+          setProducts
+        ] = useState(initialProducts)
+      
+        function handleIncreaseClick(productId) {
+          setProducts(products.map(product => {
+            if (product.id === productId) {
+              return {
+                ...product,
+                count: product.count + 1
+              };
             } else {
-              return object;
+              return product;
+            }
+          }))
+        }
+          function handleDecreaseClick(productId) {
+          let newCart = products.map(product => {
+            if (product.id === productId) {
+              return {
+                ...product,
+                count: product.count > 0 ? product.count - 1 : product.count,
+              };
+            } else {
+              return product;
             }
           })
-          setMyList(myNextList);
-        }
-      
-        function handleToggleYourList(artworkId, nextSeen) {
-          const yourNextList = yourList.map(object => {
-              if (object.id === artworkId) {
-                return {...object, seen : nextSeen}
-              } else {
-                return object;
-              }
-            })
-            setYourList(yourNextList);
-          }
+          let filtered = newCart.filter(data => data.count !== 0);
+          setProducts(filtered);
+        }  
   
   return (
     <>
@@ -510,7 +559,7 @@ function App() {
 
       {/* Updating an object in an array in state */}
 
-            <h1>Art Bucket List</h1>
+            {/* <h1>Art Bucket List</h1>
             <h2>My list of art to see:</h2>
             <ItemList
               artworks={myList}
@@ -546,7 +595,32 @@ function App() {
               ))}
             </ul>
           );
-        }
+        } */}
+
+  {/* task 2 , 2.7 */}
+
+          <ul>
+              {products.map(product => (
+                <li key={product.id}>
+                  {product.name}
+                  {' '}
+                  (<b>{product.count}</b>)
+                  <button onClick={() => {
+                    handleIncreaseClick(product.id);
+                  }}>
+                    +
+                  </button>
+                  <button onClick = {() => {
+                      handleDecreaseClick(product.id)
+                    }}>
+                    –
+                  </button>
+                </li>
+              ))}
+            </ul>
+        </>
+        );
+      }
 
 export default App
 
