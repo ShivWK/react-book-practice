@@ -285,37 +285,51 @@ function App() {
 
     //task 2 , 2.7 
 
-        const [
-          products,
-          setProducts
-        ] = useState(initialProducts)
+        // const [
+        //   products,
+        //   setProducts
+        // ] = useState(initialProducts)
       
-        function handleIncreaseClick(productId) {
-          setProducts(products.map(product => {
-            if (product.id === productId) {
-              return {
-                ...product,
-                count: product.count + 1
-              };
-            } else {
-              return product;
-            }
-          }))
+        // function handleIncreaseClick(productId) {
+        //   setProducts(products.map(product => {
+        //     if (product.id === productId) {
+        //       return {
+        //         ...product,
+        //         count: product.count + 1
+        //       };
+        //     } else {
+        //       return product;
+        //     }
+        //   }))
+        // }
+        //   function handleDecreaseClick(productId) {
+        //   let newCart = products.map(product => {
+        //     if (product.id === productId) {
+        //       return {
+        //         ...product,
+        //         count: product.count > 0 ? product.count - 1 : product.count,
+        //       };
+        //     } else {
+        //       return product;
+        //     }
+        //   })
+        //   let filtered = newCart.filter(data => data.count !== 0);
+        //   setProducts(filtered);
+        // }  
+
+        // reacting to input and state
+        
+        let [isEditActive , setEditActive] = useState(false);
+        let [firstName, setFirstName] = useState('Jane');
+        let [lastName, setLastName] = useState('Jacods');
+
+        function clickHandler(e) {
+          setEditActive(!isEditActive);
         }
-          function handleDecreaseClick(productId) {
-          let newCart = products.map(product => {
-            if (product.id === productId) {
-              return {
-                ...product,
-                count: product.count > 0 ? product.count - 1 : product.count,
-              };
-            } else {
-              return product;
-            }
-          })
-          let filtered = newCart.filter(data => data.count !== 0);
-          setProducts(filtered);
-        }  
+
+        // sharing state between components
+
+        const [isActive, setIsActive] = useState(true);
   
   return (
     <>
@@ -599,7 +613,7 @@ function App() {
 
   {/* task 2 , 2.7 */}
 
-          <ul>
+          {/* <ul>
               {products.map(product => (
                 <li key={product.id}>
                   {product.name}
@@ -617,8 +631,61 @@ function App() {
                   </button>
                 </li>
               ))}
-            </ul>
+            </ul> */}
+
+  {/* React to input an state */}
+  
+      {/* task 2 */}
+
+          {/* <form>
+            <label>
+              First name:{' '}
+              <b style = {{ "display" : isEditActive ? "none" : ""}}>{firstName}</b>
+              <input onChange = {(e) => setFirstName(e.target.value) } style = {{ "display" : isEditActive ? "" : "none"}}></input>
+            </label>
+            <br /><br />
+            <label>
+              Last name:{' '}
+              <b style = {{ "display" : isEditActive ? "none" : ""}}>{lastName}</b>
+              <input onChange = {(e) => setLastName(e.target.value) } style = {{ "display" : isEditActive ? "" : "none"}}/>
+            </label>
+            <br /><br />
+            <button type="submit" onClick = {(e) => {
+                                                    e.preventDefault();
+                                                    clickHandler(e)}
+                                                              }>
+              {isEditActive ? "Save " : "Edit "}Profile
+            </button>
+            <p><i>{`Hello, ${firstName} ${lastName}!`}</i></p>
+          </form> */}
+
+      {/* sharing the state between components */}
+
+          <h2>Almaty, Kazakhstan</h2>
+          <Panel title="About" isActive={isActive} onShow={() => setIsActive(true)}>
+            With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+          </Panel>
+          <Panel title="Etymology" isActive={!isActive} onShow={() => setIsActive(false)}>
+            The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+          </Panel>
+
         </>
+        );
+      }
+
+      function Panel({ title, children, isActive, onShow }) {
+        
+        return (
+          <section className="panel">
+            <h3>{title}</h3>
+            {isActive ? (
+              <p>{children}</p>
+            ) : (
+              <button onClick={() => onShow()}>
+                Show
+              </button>
+            )}
+          </section>
         );
       }
 
